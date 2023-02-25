@@ -9,6 +9,7 @@
 
 	onMount(async () => {
 		initFirebase(getKeys().firebase);
+
 	});
 
 </script>
