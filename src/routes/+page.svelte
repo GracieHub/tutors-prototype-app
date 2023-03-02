@@ -29,7 +29,6 @@
     <p>Students Info</p>
     <section class="flex space-x-2">
         <div class="flex justify-center" />
-        <ul>
             {#each courseEvents as courseEvent}
 				<div class="card w-60 h-[24rem] overflow-x-hidden m-1 border-y-8 border-primary-500">
 					<div class="flex">
@@ -67,6 +66,5 @@
 					</footer>
 				</div>
             {/each}
-        </ul>
     </section>
 </div>
