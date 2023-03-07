@@ -37,14 +37,36 @@
             }
         });
     });
+
 </script>
+
 <div class="container mx-auto p-8 space-y-8">
     <h1>Tutors Live Prototype</h1>
     <p>Students Info</p>
+	<h3>Students Online Studying Topic A</h3>
     <section class="flex space-x-2">
         <div class="flex justify-center" />
         {#each courseEvents as courseEvent}
-            <StudentCard {courseEvent} />
-        {/each}
-    </section>
-</div>
+		{#if courseEvent.topic === 'topicA'}
+		<StudentCard {courseEvent} />
+		{/if}
+		{/each}
+	</section>
+	<h3>Students Online Studying Topic B</h3>
+	<section class="flex space-x-2">
+        {#each courseEvents as courseEvent}
+		{#if courseEvent.topic === 'topicB'}
+		<StudentCard {courseEvent} />
+		{/if}
+		{/each}
+	</section>
+	<h3>Students Online Studying Topic C</h3>
+	<section class="flex space-x-2">
+        {#each courseEvents as courseEvent}
+		{#if courseEvent.topic === 'topicC'}
+		<StudentCard {courseEvent} />
+		{/if}
+		{/each}
+	</section>
+	</div>
+
