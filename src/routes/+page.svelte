@@ -3,13 +3,16 @@
     import { child, get, getDatabase, onValue, ref, off } from 'firebase/database';
     import { onMount } from 'svelte';
     import { getKeys } from '../environment';
-    import StudentCard from '$lib/StudentCard.svelte';
+    import Card from '$lib/StudentCard.svelte';
     /**
      * @type {any[]}
      */
     let courseEvents = [];
-    // A Map of all students seen so far (name) ==> Student Data)
+    let reload = false;
+    // A Map of all students seen so far student name) ==> StudentEvent)
     let studentRecords = new Map();
+    // A Map of (topic name) => (a map of (student Name) => StudentEvent)
+    let topics = new Map();
     onMount(async () => {
         initFirebase(getKeys().firebase);
         let statusRef = ref(getDatabase(), 'StudentInfo');
@@ -19,54 +22,50 @@
                 const studentEvent = snapshot.val();
                 console.log('student info received');
                 console.log(studentEvent);
-                // Have we seen this student before?
-                const studentRecord = studentRecords.get(studentEvent.name);
-                if (!studentRecord) {
-                    // Nope, this is a new student. Lets store the student in our map
-                    studentRecords.set(studentEvent.name, studentEvent);
-                    // .. and lets push onto the aray of live student cards we are displaying
-                    courseEvents.push(studentEvent);
+
+                topics.forEach((studentMap, topicName) => {
+                    studentMap.delete(studentEvent.name);
+                });
+                // Now, see if we have seen topic before
+                const studentMapForTopic = topics.get(studentEvent.topic);
+                if (!studentMapForTopic) {
+                    // Nope, this is a new topic. Lets create a new studentMap for this topic
+                    const studentMap = new Map();
+                    //  put the student into this map
+                    studentMap.set(studentEvent.name, studentEvent);
+                    // put the map into the topics mao
+                    topics.set(studentEvent.topic, studentMap);
                 } else {
-                    // we have already seen this student, so lets update the course info...
-                    studentRecord.course = studentEvent.course;
-                    // .. and lets also update the topic
-                    studentRecord.topic = studentEvent.topic;
+                    // existiing topic, put the student in
+                    studentMapForTopic.set(studentEvent.name, studentEvent);
+                    // if the student was already in aother topic, we have removed it (see earlier)
                 }
+                // we have changed the topic map, reload this part of the page
+                reload = !reload;
                 // touch all sutdent records, so that if any have changed they will be refreshed in screen
                 courseEvents = [...courseEvents];
             }
         });
     });
-
 </script>
-
 <div class="container mx-auto p-8 space-y-8">
     <h1>Tutors Live Prototype</h1>
-    <p>Students Info</p>
-	<h3>Students Online Studying Topic A</h3>
-    <section class="flex space-x-2">
-        <div class="flex justify-center" />
-        {#each courseEvents as courseEvent}
-		{#if courseEvent.topic === 'topicA'}
-		<StudentCard {courseEvent} />
-		{/if}
-		{/each}
-	</section>
-	<h3>Students Online Studying Topic B</h3>
-	<section class="flex space-x-2">
-        {#each courseEvents as courseEvent}
-		{#if courseEvent.topic === 'topicB'}
-		<StudentCard {courseEvent} />
-		{/if}
-		{/each}
-	</section>
-	<h3>Students Online Studying Topic C</h3>
-	<section class="flex space-x-2">
-        {#each courseEvents as courseEvent}
-		{#if courseEvent.topic === 'topicC'}
-		<StudentCard {courseEvent} />
-		{/if}
-		{/each}
-	</section>
-	</div>
-
+    {#key reload}
+        <section class=" space-x-2">
+            // nested for loop. 
+            // outer loop going through all entries in topics and print topic name
+            {#each [...topics] as [topicName, topicMap]}  
+                <hr />
+                <h3 class="p-2">Topic: {topicName}</h3>
+                <hr />
+                <h5 class="p-2">Students</h5>
+                <div class="flex justify-center">
+                    // go through topic map and get at student name and student record and produce card pops up.
+                    {#each [...topicMap] as [studentName, studentRecord]}
+                        <Card courseEvent={studentRecord} />
+                    {/each}
+                </div>
+            {/each}
+        </section>
+    {/key}
+</div>
