@@ -52,15 +52,12 @@
     <h1>Tutors Live Prototype</h1>
     {#key reload}
         <section class=" space-x-2">
-            // nested for loop. 
-            // outer loop going through all entries in topics and print topic name
             {#each [...topics] as [topicName, topicMap]}  
                 <hr />
                 <h3 class="p-2">Topic: {topicName}</h3>
                 <hr />
                 <h5 class="p-2">Students</h5>
                 <div class="flex justify-center">
-                    // go through topic map and get at student name and student record and produce card pops up.
                     {#each [...topicMap] as [studentName, studentRecord]}
                         <Card courseEvent={studentRecord} />
                     {/each}
