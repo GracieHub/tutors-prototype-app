@@ -48,6 +48,11 @@
         });
     });
 </script>
+<svelte:head>
+  <title>Tutors Live</title>
+</svelte:head>
+<div class="sticky top-0 z-40 mb-5">
+</div>
 <div class="container mx-auto p-8 space-y-8">
     <h1>Tutors Live Prototype</h1>
     {#key reload}

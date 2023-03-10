@@ -6,10 +6,10 @@
 	import { getKeys } from "../environment";
 	import { onMount } from "svelte";
 	import { initFirebase } from "$lib/firebase-utils";
+//	import tutors from "tutors.css";
 
 	onMount(async () => {
 		initFirebase(getKeys().firebase);
-
 	});
 
 </script>
