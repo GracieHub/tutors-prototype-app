@@ -8,10 +8,11 @@
     <div class="flex">
         <header class="card-header inline-flex items-center">
             <div class="inline-flex w-full">
-                <Avatar src="/student1.jpg" alt={courseEvent.name} class="mr-2" />
+                <Avatar src="{courseEvent.profileimage}" alt={courseEvent.name} class="mr-2" />
                 <h6>
                     {courseEvent.name}
                     <div>
+                        <a href="{courseEvent.slackmsg}" target="_blank">
                         <button
                             class="btn variant-filled-secondary btn-base ring-2 ring-primary-500 ring-inset text-filled-500"
                         >
@@ -19,6 +20,8 @@
                                 <FaFacebookMessenger />
                             </div>
                         </button>
+                        </a>
+                        <a href="{courseEvent.slackhuddle}" target="_blank">
                         <button
                             class="btn variant-filled-secondary btn-base ring-2 ring-primary-500 ring-inset text-filled-500"
                         >
@@ -26,16 +29,17 @@
                                 <FaPhone />
                             </div>
                         </button>
+                        </a>
                     </div>
                 </h6>
             </div>
         </header>
     </div>
     <figure class="flex justify-center object-scale-down mt-4 p-1 h-40">
-        <img src="/topic.jpg" alt="topic Image here" />
+        <img src= "{courseEvent.topicimage}" alt="topic Image"/>
     </figure>
     <div class="card-body text-center">
-        Studying Lab: {@html courseEvent.course}
+        Studying Lab: {@html courseEvent.module}
     </div>
     <footer class="card-footer text-center">
         <p class="mt-2 italic">
