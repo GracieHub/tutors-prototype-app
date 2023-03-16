@@ -39,11 +39,11 @@
         <img src= "{courseEvent.topicimage}" alt="topic Image"/>
     </figure>
     <div class="card-body text-center">
-        Studying Lab: {@html courseEvent.module}
+        Studying: {@html courseEvent.module}
     </div>
     <footer class="card-footer text-center">
         <p class="mt-2 italic">
-            {@html courseEvent.topic}
+              {@html courseEvent.topic}
         </p>
     </footer>
 </div>

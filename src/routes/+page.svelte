@@ -4,6 +4,9 @@
     import { onMount } from 'svelte';
     import { getKeys } from '../environment';
     import Card from '$lib/StudentCard.svelte';
+    import FaPhone from 'svelte-icons/fa/FaPhone.svelte';
+    import TopicHuddleCard from "$lib/TopicHuddleCard.svelte";
+
     /**
      * @type {any[]}
      */
@@ -25,19 +28,23 @@
 
                 topics.forEach((studentMap, topicName) => {
                     studentMap.delete(studentEvent.name);
+
                 });
                 // Now, see if we have seen topic before
                 const studentMapForTopic = topics.get(studentEvent.topic);
+
                 if (!studentMapForTopic) {
                     // Nope, this is a new topic. Lets create a new studentMap for this topic
                     const studentMap = new Map();
                     //  put the student into this map
                     studentMap.set(studentEvent.name, studentEvent);
+
                     // put the map into the topics mao
                     topics.set(studentEvent.topic, studentMap);
                 } else {
                     // existiing topic, put the student in
                     studentMapForTopic.set(studentEvent.name, studentEvent);
+
                     // if the student was already in aother topic, we have removed it (see earlier)
                 }
                 // we have changed the topic map, reload this part of the page
@@ -59,10 +66,12 @@
         <section class=" space-x-2">
             {#each [...topics] as [topicName, topicMap]}  
                 <hr />
-                <h3 class="p-2">Topic: {topicName}</h3>
+                <h3 class="p-2">Topic: {topicName} 
+                <TopicHuddleCard courseEvent={courseEvents}/>
+                </h3> 
                 <hr />
                 <h5 class="p-2">Students</h5>
-                <div class="flex justify-center">
+                <div class="flex justify-center">  
                     {#each [...topicMap] as [studentName, studentRecord]}
                         <Card courseEvent={studentRecord} />
                     {/each}
