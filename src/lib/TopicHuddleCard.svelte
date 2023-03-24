@@ -1,14 +1,11 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-	import FaFacebookMessenger from 'svelte-icons/fa/FaFacebookMessenger.svelte';
+    import { page } from '$app/stores';
+    import FaFacebookMessenger from 'svelte-icons/fa/FaFacebookMessenger.svelte';
     import FaPhone from 'svelte-icons/fa/FaPhone.svelte';
-
-    export let courseEvent: any;
-
+    export let topicMap;
+    const [firstTopic] = topicMap.values();
 </script>
-
-
-<a href="{courseEvent.topichuddle}" target="_blank">
+<a href={firstTopic?.topichuddle} target="_blank" rel="noreferrer">
     <button
         class="btn variant-filled-secondary btn-base ring-2 ring-primary-500 ring-inset text-filled-500"
     >
@@ -16,4 +13,4 @@
             <FaPhone />
         </div>
     </button>
-    </a>
+</a>

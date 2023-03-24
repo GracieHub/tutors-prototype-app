@@ -5,7 +5,7 @@
     import { getKeys } from '../environment';
     import Card from '$lib/StudentCard.svelte';
     import FaPhone from 'svelte-icons/fa/FaPhone.svelte';
-    import TopicHuddleCard from "$lib/TopicHuddleCard.svelte";
+    import TopicHuddleCard from '$lib/TopicHuddleCard.svelte';
 
     /**
      * @type {any[]}
@@ -47,6 +47,7 @@
 
                     // if the student was already in aother topic, we have removed it (see earlier)
                 }
+
                 // we have changed the topic map, reload this part of the page
                 reload = !reload;
                 // touch all sutdent records, so that if any have changed they will be refreshed in screen
@@ -67,7 +68,7 @@
             {#each [...topics] as [topicName, topicMap]}  
                 <hr />
                 <h3 class="p-2">Topic: {topicName} 
-                <TopicHuddleCard courseEvent={courseEvents}/>
+                    <TopicHuddleCard {topicMap} />
                 </h3> 
                 <hr />
                 <h5 class="p-2">Students</h5>
