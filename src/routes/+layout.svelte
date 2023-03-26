@@ -20,7 +20,7 @@
 		<!-- App Bar -->
 		<AppBar>
 			<svelte:fragment slot="lead">
-				<strong class="text-xl uppercase">Tutors Prototype</strong>
+				<strong class="text-xl uppercase">Tutors Hive</strong>
 			</svelte:fragment>
 		</AppBar>
 	</svelte:fragment>

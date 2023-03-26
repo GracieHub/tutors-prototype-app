@@ -57,12 +57,12 @@
     });
 </script>
 <svelte:head>
-  <title>Tutors Live</title>
+  <title>Tutors Hive</title>
 </svelte:head>
 <div class="sticky top-0 z-40 mb-5">
 </div>
 <div class="container mx-auto p-8 space-y-8">
-    <h1>Tutors Live Prototype</h1>
+    <h1>Tutors Hive</h1>
     {#key reload}
         <section class=" space-x-2">
             {#each [...topics] as [topicName, topicMap]}  
